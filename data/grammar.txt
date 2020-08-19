@@ -1,0 +1,16 @@
+
+SOURCE          ::= (MACHINE_SPEC | EOL)*
+RESERVED_NAMES  ::= "machine" "state" "this" "_"
+
+IDENTIFIER      ::= /[A-Za-z_][A-Za-z0-9_]*/
+NULL            ::= "~"
+EOL             ::= ";"
+
+MACHINE_SPEC    ::= "machine" IDENTIFIER "{" MACHINE_ENTRY* "}"
+MACHINE_ENTRY   ::= [MACHINE_SPEC | STATE_SPEC] EOL
+
+STATE_NAME      ::= IDENTIFIER (":" IDENTIFIER)*
+STATE_SPEC      ::= "state" IDENTIFIER "{" STATE_ENTRY* "}"
+STATE_ENTRY     ::= [TRANSITION] EOL
+
+TRANSITION      ::= IDENTIFIER ">" STATE_NAME

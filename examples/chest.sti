@@ -1,0 +1,17 @@
+
+machine Chest {
+    machine Closed {
+        state Locked {
+            unlock > Unlocked;
+        };
+
+        state Unlocked {
+            lock > Locked;
+            open > Open;
+        };
+    };
+
+    state Open {
+        close > Closed:Unlocked;
+    };
+};

@@ -1,0 +1,17 @@
+
+machine Chest {
+    machine Closed {
+        state Locked {
+            unlock > :Chest:Closed:Unlocked;
+        };
+
+        state Unlocked {
+            lock > :Chest:Closed:Locked;
+            open > :Chest:Open;
+        };
+    };
+
+    state Open {
+        close > :Chest:Closed:Unlocked;
+    };
+};

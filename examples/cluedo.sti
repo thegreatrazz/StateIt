@@ -1,0 +1,20 @@
+
+machine Game {
+    state Title {
+        start > Setup;
+        credits > Credits;
+    };
+
+    machine Setup {
+        state GameSettings {
+            confirm >
+        }
+
+        state PlayerSettings {
+            morePlayers > this
+            enoughPlayers > _:Game:Title
+        }
+    };
+
+    machine
+};
