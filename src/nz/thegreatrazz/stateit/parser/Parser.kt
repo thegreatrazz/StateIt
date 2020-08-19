@@ -1,19 +1,38 @@
 package nz.thegreatrazz.stateit.parser
 
 import nz.thegreatrazz.stateit.ast.Node
-import org.omg.CORBA.Environment
 import java.io.File
-import java.io.FileInputStream
 import java.io.InputStream
 import javax.swing.JFileChooser
 
 object Parser {
+    /**
+     * Parses an input stream to an AST.
+     */
     @JvmStatic
-    fun parse(file: File): Node {
-        val lineBoundary = HashSet<Int>()
-        return ParserContext(FileInputStream(file)).parseSource()
-    }
+    fun parse(inputStream: InputStream): Node = ParserContext(inputStream).parseSource()
 
+    /**
+     * Parses a file to an AST.
+     */
+    @JvmStatic
+    fun parse(file: File): Node = ParserContext(file).parseSource()
+
+    /**
+     * Parses a readable object to an AST.
+     */
+    @JvmStatic
+    fun parse(readable: Readable): Node = ParserContext(readable).parseSource()
+
+    /**
+     * Parses a string to an AST.
+     */
+    @JvmStatic
+    fun parse(string: String): Node = ParserContext(string).parseSource()
+
+    /**
+     * Get the a set of where the lines start in an input stream.
+     */
     @JvmStatic
     fun getLineStarts(stream: InputStream): Set<Int> {
         val lines = HashSet<Int>(listOf(0))
@@ -43,6 +62,12 @@ object Parser {
         return lines
     }
 
+    /**
+     * Gets the line for a position.
+     *
+     * @param lines A set with the offsets where lines begin.
+     * @param position The position to look for.
+     */
     @JvmStatic
     fun getLineForPosition(lines: Collection<Int>, position: Int): Int {
         return -1

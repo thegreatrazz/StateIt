@@ -1,11 +1,12 @@
 package nz.thegreatrazz.stateit.parser
 
 import nz.thegreatrazz.stateit.ast.*
-import java.io.*
+import java.io.File
+import java.io.InputStream
 import java.util.*
 import java.util.regex.Pattern
 
-class ParserContext(input: InputStream) {
+class ParserContext {
     companion object {
         private const val KW_MACHINE = "machine"
         private const val KW_STATE = "state"
@@ -25,9 +26,29 @@ class ParserContext(input: InputStream) {
         private val IDENTIFIER = Regex("[A-Za-z_][A-Za-z0-9_]*")
     }
 
-    private val scanner: Scanner = Scanner(input)
+    private val scanner: Scanner
 
-    init {
+    constructor(input: File) {
+        scanner = Scanner(input)
+        scannerInit()
+    }
+
+    constructor(input: InputStream) {
+        scanner = Scanner(input)
+        scannerInit()
+    }
+
+    constructor(input: Readable) {
+        scanner = Scanner(input)
+        scannerInit()
+    }
+
+    constructor(input: String) {
+        scanner = Scanner(input)
+        scannerInit()
+    }
+
+    private fun scannerInit() {
         scanner.useDelimiter("\\s+|(?=[$OPERATORS])|(?<=[$OPERATORS])")
     }
 

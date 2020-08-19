@@ -1,24 +1,19 @@
 plugins {
     kotlin("jvm") version "1.4.0"
-    id("org.jetbrains.dokka") version "1.4.0-rc"
 }
 
-kotlin {
-
-}
+kotlin {}
 
 sourceSets.main {
     java.srcDir("src")
 }
 
 repositories {
-    jcenter() // or maven(url="https://dl.bintray.com/kotlin/dokka")
+    jcenter()
 }
 
-tasks.dokkaHtml {
-    outputDirectory = "$buildDir/docs/kotlin"
-}
-
-tasks.dokkaJavadoc {
-    outputDirectory = "$buildDir/docs/javadoc"
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "nz.thegreatrazz.stateit.ui.MainWindow"
+    }
 }
